@@ -325,7 +325,7 @@ end
 
 function M.decodeFile(file, path)
 	local cleaningData = { dataLevel = 0, indent = 0, lines = {}, dataIndentLevels = {}}
-	print("Collection-Parser: Parsing File... " .. tostring(path))
+	-- print("Collection-Parser: Parsing File... " .. tostring(path))
 	for line in file:lines() do
 		M.cleanLine(line, cleaningData)
 	end
@@ -335,7 +335,7 @@ function M.decodeFile(file, path)
 	local basePath = string.match(path, "^(.*)\\main\\.*$")
 	data.basePath = basePath
 
-	print("\tDone.")
+	-- print("\tDone.")
 	return data
 end
 
