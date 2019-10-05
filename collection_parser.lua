@@ -256,7 +256,9 @@ function M.cleanLinesToTable(lines)
 			end
 		end
 	end
-	formatVectors(data)
+	if vmath then
+		formatVectors(data)
+	end
 	return data
 end
 
@@ -322,25 +324,18 @@ function M.tableToCleanLines(data)
 end
 
 function M.decodeFile(file, path)
-	local t = socket.gettime()
 	local cleaningData = { dataLevel = 0, indent = 0, lines = {}, dataIndentLevels = {}}
-	print("Parsing File... " .. tostring(path))
-	-- print("\tCleaning file lines...")
+	print("Collection-Parser: Parsing File... " .. tostring(path))
 	for line in file:lines() do
 		M.cleanLine(line, cleaningData)
 	end
-	-- print("\t\tDone cleaning.")
 
-	-- print("\tParsing cleaned lines to lua table...")
 	local data = M.cleanLinesToTable(cleaningData.lines)
 
 	local basePath = string.match(path, "^(.*)\\main\\.*$")
 	data.basePath = basePath
 
-	-- print("\t\tDone.")
-	t = (socket.gettime() - t) * 1000
-	print(string.format("\tParsing took: %.3f ms.", t))
-
+	print("\tDone.")
 	return data
 end
 
